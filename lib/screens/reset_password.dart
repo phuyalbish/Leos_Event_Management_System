@@ -1,5 +1,7 @@
 // import 'package:firebase_auth/firebase_auth.dart';
 
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:evento/reusable_widgets/reusable_widget.dart';
 import 'package:evento/utils/color_utils.dart';
 import 'package:flutter/material.dart';

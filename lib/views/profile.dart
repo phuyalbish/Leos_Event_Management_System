@@ -18,10 +18,11 @@ class _ProfilePageState extends State<ProfilePage> {
         .collection('Users')
         .where('email', isEqualTo: emails)
         .get();
-
-    setState(() {
-      searchResult = result.docs.map((e) => e.data()).toList();
-    });
+    if (mounted) {
+      setState(() {
+        searchResult = result.docs.map((e) => e.data()).toList();
+      });
+    }
   }
 
   @override
@@ -32,34 +33,28 @@ class _ProfilePageState extends State<ProfilePage> {
         child: Column(
       children: [
         SizedBox(
-          height: MediaQuery.of(context).size.height * 1,
+          height: MediaQuery.of(context).size.height * 0.5,
           width: MediaQuery.of(context).size.width * 1,
-          child: SingleChildScrollView((
-            child: Column(
-              children: [
-                ListView.builder(
-                  itemCount: searchResult.length,
-                  itemBuilder: (context, index) {
-                    return ListTile(
-                      title: Text(searchResult[index]['name']),
-                      subtitle: Text(searchResult[index]['age']),
-                    );
-                  },
-                ),
-                ElevatedButton(
-                  child: const Text("Logout"),
-                  onPressed: () {
-                    FirebaseAuth.instance.signOut().then((value) {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const SignInScreen()));
-                    });
-                  },
-                ),
-              ],
-            ),
+          child: ListView.builder(
+            itemCount: searchResult.length,
+            itemBuilder: (context, index) {
+              return ListTile(
+                title: Text(searchResult[index]['name']),
+                subtitle: Text(searchResult[index]['age']),
+              );
+            },
           ),
+        ),
+        ElevatedButton(
+          child: const Text("Logout"),
+          onPressed: () {
+            FirebaseAuth.instance.signOut().then((value) {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const SignInScreen()));
+            });
+          },
         ),
       ],
     ));

@@ -38,7 +38,7 @@ class _NotificationPageState extends State<NotificationPage> {
             },
           ),
         ),
-        Container(
+        SizedBox(
           height: 200,
           child: ListView.builder(
             itemCount: searchResult.length,
