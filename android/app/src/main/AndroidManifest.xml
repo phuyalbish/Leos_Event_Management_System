@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.evento">
    <application
-        android:label="evento"
+        android:label="Evento: Leo Club of Kathmandu Events"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

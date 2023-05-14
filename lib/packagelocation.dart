@@ -13,5 +13,7 @@ export 'package:evento/screens/signin_screen.dart';
 export 'package:evento/screens/signup_screen.dart';
 export 'package:evento/utils/color_utils.dart';
 export 'package:evento/reusable_widgets/reusable_widget.dart';
+
+export 'package:evento/pages/auth_page.dart';
 // export 'package:evento/model/login.dart';
 // export 'package:evento/controller/logincontroller.dart';

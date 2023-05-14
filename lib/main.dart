@@ -1,5 +1,4 @@
 import 'package:firebase_core/firebase_core.dart';
-
 import 'package:evento/packagelocation.dart';
 
 void main() async {
@@ -18,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const SignInScreen(),
+      home: const AuthPage(),
     );
   }
 }
