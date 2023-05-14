@@ -6,7 +6,6 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 
 class Navbar extends StatefulWidget {
   const Navbar({super.key});
-
   @override
   State<Navbar> createState() => _NavbarState();
 }
@@ -73,8 +72,8 @@ class _NavbarState extends State<Navbar> {
                 },
               ),
               GButton(
-                icon: Icons.notifications,
-                text: "Notification",
+                icon: Icons.search,
+                text: "Search",
                 onPressed: () {
                   setState(() {
                     isNotificationPageVisible = true;

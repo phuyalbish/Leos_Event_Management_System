@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:evento/packagelocation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -13,7 +14,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _retypepasswordTextController =
       TextEditingController();
   final TextEditingController _emailTextController = TextEditingController();
-  // final TextEditingController _userNameTextController = TextEditingController();
+  final TextEditingController _userNameTextController = TextEditingController();
+  final TextEditingController _ageTextController = TextEditingController();
+
+  final fireStore = FirebaseFirestore.instance.collection('Users');
   String errorMsg = "";
   @override
   Widget build(BuildContext context) {
@@ -40,27 +44,39 @@ class _SignUpScreenState extends State<SignUpScreen> {
               const SizedBox(
                 height: 20,
               ),
-              // reusableTextField("Enter UserName", Icons.person_outline, false,
-              //     _userNameTextController),
-              // const SizedBox(
-              //   height: 20,
-              // ),
+              reusableTextField("Enter UserName", Icons.person_outline, false,
+                  _userNameTextController,
+                  txttype: TextInputType.text),
+              const SizedBox(
+                height: 20,
+              ),
               reusableTextField("Enter Email Id", Icons.person_outline, false,
-                  _emailTextController),
+                  _emailTextController,
+                  txttype: TextInputType.emailAddress),
+              const SizedBox(
+                height: 20,
+              ),
+              reusableTextField("Enter age", Icons.timelapse_outlined, false,
+                  _ageTextController,
+                  txttype: TextInputType.number),
               const SizedBox(
                 height: 20,
               ),
               reusableTextField("Enter Password", Icons.lock_outlined, true,
-                  _passwordTextController),
+                  _passwordTextController,
+                  txttype: TextInputType.visiblePassword),
               const SizedBox(
                 height: 20,
               ),
-              reusableTextField("ReType Password", Icons.lock_outlined, true,
+              reusableTextField(
+                  "ReType Password",
+                  Icons.lock_outlined,
+                  true,
+                  txttype: TextInputType.visiblePassword,
                   _retypepasswordTextController),
               const SizedBox(
                 height: 20,
               ),
-
               firebaseUIButton(context, "Sign Up", () async {
                 if (_retypepasswordTextController.text ==
                     _passwordTextController.text) {
@@ -69,10 +85,22 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         .createUserWithEmailAndPassword(
                             email: _emailTextController.text,
                             password: _passwordTextController.text)
-                        .then((value) => Navigator.push(
+                        .then((value) {
+                      fireStore.doc().set({
+                        'age': _ageTextController.text,
+                        'email': _emailTextController.text,
+                        'name': _userNameTextController.text,
+                      }).then((value) {
+                        Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const Navbar())));
+                                builder: (context) => const Navbar()));
+                      }).onError((error, stackTrace) {
+                        setState(() {
+                          errorMsg = "something wrong.";
+                        });
+                      });
+                    });
                   } on FirebaseAuthException catch (e) {
                     setState(() {
                       errorMsg = "Invalid Username or Password";
@@ -84,7 +112,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   });
                 }
               }),
-
               const SizedBox(
                 height: 5,
               ),

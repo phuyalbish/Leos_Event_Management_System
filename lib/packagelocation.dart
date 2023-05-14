@@ -3,7 +3,7 @@ export 'package:flutter/material.dart';
 export 'package:evento/views/navbar.dart';
 export 'package:evento/views/home.dart';
 
-export 'package:evento/views/notifications.dart';
+export 'package:evento/views/search.dart';
 export 'package:evento/views/profile.dart';
 export 'package:evento/views/wishlist.dart';
 
