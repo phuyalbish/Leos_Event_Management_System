@@ -58,3 +58,83 @@ Container firebaseUIButton(BuildContext context, String title, Function onTap) {
     ),
   );
 }
+
+class EventPost extends StatefulWidget {
+  final String? eventpostname;
+  final String? eventorgby;
+  final String? eventaddress;
+  const EventPost(
+      {super.key, this.eventaddress, this.eventorgby, this.eventpostname});
+
+  @override
+  State<EventPost> createState() => _EventPostState();
+}
+
+class _EventPostState extends State<EventPost> {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(15, 0, 15, 5),
+      child: Container(
+          width: MediaQuery.of(context).size.width,
+          margin: const EdgeInsets.only(top: 20),
+          // padding: const EdgeInsets.only(left: 10, right: 10),
+          decoration: BoxDecoration(
+              border: Border.all(width: 1),
+              borderRadius: BorderRadius.circular(20)),
+          child: Column(
+            children: [
+              ClipRRect(
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(19),
+                  topRight: Radius.circular(19),
+                ),
+                child: Image.asset(
+                  "assets/images/bg1.jpg",
+                  width: MediaQuery.of(context).size.width,
+                  fit: BoxFit.cover,
+                  height: 200,
+                ),
+              ),
+              const SizedBox(height: 2),
+              Container(
+                  padding: const EdgeInsets.only(left: 10, right: 10),
+                  child: ListTile(
+                    contentPadding: const EdgeInsets.all(0),
+                    leading: ClipRRect(
+                      borderRadius: BorderRadius.circular(50),
+                      child: Image.asset(
+                        "assets/images/profile.jpg",
+                        width: 60,
+                        fit: BoxFit.cover,
+                        height: 60,
+                      ),
+                    ),
+                    title:
+                        Text("${widget.eventorgby!}\n${widget.eventpostname!}"),
+                    subtitle: Row(
+                      children: [
+                        const Text("Feb 2"),
+                        const SizedBox(width: 5),
+                        Image.asset(
+                          "assets/images/profile.jpg",
+                          width: 14,
+                        ),
+                      ],
+                    ),
+                    trailing: const Icon(Icons.filter_list),
+                  )),
+              Container(
+                // height: 20,
+                padding: const EdgeInsets.only(left: 10, right: 10),
+                alignment: Alignment.topLeft,
+                child: Text(
+                  widget.eventaddress!,
+                ),
+              ),
+              const SizedBox(height: 10),
+            ],
+          )),
+    );
+  }
+}

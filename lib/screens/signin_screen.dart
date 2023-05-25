@@ -1,5 +1,3 @@
-// ignore_for_file: library_private_types_in_public_api, unused_catch_clause
-
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:evento/packagelocation.dart';
@@ -78,21 +76,6 @@ class _SignInScreenState extends State<SignInScreen> {
                         height: 5,
                       ),
                       forgetPassword(context),
-                      // firebaseUIButton(context, "Sign In", () {
-                      //   FirebaseAuth.instance
-                      //       .signInWithEmailAndPassword(
-                      //           email: _emailTextController.text,
-                      //           password: _passwordTextController.text)
-                      //       .then((value) {
-                      //     Navigator.push(
-                      //         context,
-                      //         MaterialPageRoute(
-                      //             builder: (context) => const Navbar()));
-                      //   }).onError((error, stackTrace) {
-                      //     print("Error ${error.toString()}");
-                      //   });
-                      // }),
-
                       firebaseUIButton(context, "Sign In", () async {
                         try {
                           await FirebaseAuth.instance

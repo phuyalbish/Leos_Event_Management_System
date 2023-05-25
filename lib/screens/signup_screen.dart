@@ -18,6 +18,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _emailTextController = TextEditingController();
   final TextEditingController _userNameTextController = TextEditingController();
   final TextEditingController _ageTextController = TextEditingController();
+  final TextEditingController _descTextController = TextEditingController();
 
   final fireStore = FirebaseFirestore.instance.collection('Users');
   String errorMsg = "";
@@ -40,9 +41,36 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ),
         body: SingleChildScrollView(
             child: Padding(
-          padding: const EdgeInsets.fromLTRB(20, 120, 20, 0),
+          padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
           child: Column(
             children: <Widget>[
+              SizedBox(height: 20),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.transparent,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(200),
+                  ),
+                ),
+                onPressed: () {},
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Container(
+                    width: 100,
+                    height: 100,
+                    decoration: BoxDecoration(
+                        image: const DecorationImage(
+                            image: AssetImage('assets/images/Usr_profile2.png'),
+                            fit: BoxFit.cover),
+                        borderRadius: BorderRadius.circular(100)),
+                    child: const Icon(
+                      Icons.add,
+                      size: 50,
+                      color: Color.fromARGB(255, 255, 255, 255),
+                    ),
+                  ),
+                ),
+              ),
               const SizedBox(
                 height: 20,
               ),
@@ -61,6 +89,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
               reusableTextField("Enter age", Icons.timelapse_outlined, false,
                   _ageTextController,
                   txttype: TextInputType.number),
+              const SizedBox(
+                height: 20,
+              ),
+              reusableTextField("Type Description", Icons.description, false,
+                  _descTextController,
+                  txttype: TextInputType.text),
               const SizedBox(
                 height: 20,
               ),

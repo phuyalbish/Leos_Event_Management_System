@@ -7,7 +7,6 @@ export 'package:evento/views/search.dart';
 export 'package:evento/views/profile.dart';
 export 'package:evento/views/wishlist.dart';
 
-export 'package:evento/screens/home_screen.dart';
 export 'package:evento/screens/reset_password.dart';
 export 'package:evento/screens/signin_screen.dart';
 export 'package:evento/screens/signup_screen.dart';

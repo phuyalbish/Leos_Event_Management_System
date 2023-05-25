@@ -29,25 +29,29 @@ class _NotificationPageState extends State<NotificationPage> {
         Padding(
           padding: const EdgeInsets.all(15.0),
           child: TextField(
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(),
-              hintText: "Search Here",
-            ),
-            onChanged: (query) {
-              searchFromFirebase(query);
-            },
-          ),
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: "Search Here",
+              ),
+              onChanged: (query) {
+                searchFromFirebase(query);
+              }),
         ),
-        SizedBox(
-          height: 200,
-          child: ListView.builder(
-            itemCount: searchResult.length,
-            itemBuilder: (context, index) {
-              return ListTile(
-                title: Text(searchResult[index]['Description']),
-                subtitle: Text(searchResult[index]['Organizedby']),
-              );
-            },
+        SingleChildScrollView(
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height * 0.785,
+            child: Expanded(
+              child: ListView.builder(
+                itemCount: searchResult.length,
+                itemBuilder: (context, index) {
+                  return EventPost(
+                    eventaddress: searchResult[index]['Address'],
+                    eventorgby: searchResult[index]['Organizedby'],
+                    eventpostname: searchResult[index]['Title'],
+                  );
+                },
+              ),
+            ),
           ),
         ),
       ],
