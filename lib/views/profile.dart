@@ -33,19 +33,32 @@ class _ProfilePageState extends State<ProfilePage> {
         child: Column(
       children: [
         SizedBox(
-          height: MediaQuery.of(context).size.height * 0.5,
+          height: 20,
+        ),
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.4,
           width: MediaQuery.of(context).size.width * 1,
           child: ListView.builder(
+            physics: NeverScrollableScrollPhysics(),
             itemCount: searchResult.length,
             itemBuilder: (context, index) {
-              return ListTile(
-                title: Text(searchResult[index]['name']),
-                subtitle: Text(searchResult[index]['age']),
+              return Column(
+                children: [
+                  CircleAvatar(
+                    backgroundImage:
+                        NetworkImage('${searchResult[index]['image']}'),
+                    radius: 100,
+                  ),
+                  ListTile(
+                    title: Text(searchResult[index]['name']),
+                    subtitle: Text(
+                        "${searchResult[index]['age']}\n\"${searchResult[index]['description']}\""),
+                  ),
+                ],
               );
             },
           ),
         ),
-        const Text("who"),
         ElevatedButton(
           child: const Text("Logout"),
           onPressed: () {

@@ -4,6 +4,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:evento/packagelocation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+
+import 'dart:io';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -20,9 +23,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _userNameTextController = TextEditingController();
   final TextEditingController _ageTextController = TextEditingController();
   final TextEditingController _descTextController = TextEditingController();
-
+  String imageUrl = '';
   final fireStore = FirebaseFirestore.instance.collection('Users');
   String errorMsg = "";
+  String imagemsg = "";
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -42,28 +47,49 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ),
         body: SingleChildScrollView(
             child: Padding(
-          padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+          padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
           child: Column(
             children: <Widget>[
-              const SizedBox(height: 20),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.transparent,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(200),
-                  ),
+                      borderRadius: BorderRadius.circular(200),
+                      side: const BorderSide(
+                          width: 2, // the thickness
+                          color: Color.fromARGB(
+                              255, 255, 255, 255) // the color of the border
+                          )),
                 ),
                 onPressed: () async {
                   ImagePicker imagePicker = ImagePicker();
+
                   XFile? file =
-                      await imagePicker.pickImage(source: ImageSource.camera);
-                  print('${file?.path}')
+                      await imagePicker.pickImage(source: ImageSource.gallery);
+
+                  if (file == null) return;
+                  String uniqueImagename =
+                      DateTime.now().millisecondsSinceEpoch.toString();
+                  Reference referenceRoot = FirebaseStorage.instance.ref();
+                  Reference referenceDirImages = referenceRoot.child('images');
+                  Reference referenceImageToUpload =
+                      referenceDirImages.child(uniqueImagename);
+
+                  try {
+                    await referenceImageToUpload.putFile(File(file.path));
+                    imageUrl = await referenceImageToUpload.getDownloadURL();
+                  } catch (error) {
+                    //
+                  }
+                  setState(() {
+                    imagemsg = "Image Uploaded";
+                  });
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(20),
                   child: Container(
-                    width: 100,
-                    height: 100,
+                    width: 80,
+                    height: 80,
                     decoration: BoxDecoration(
                         image: const DecorationImage(
                             image: AssetImage('assets/images/Usr_profile2.png'),
@@ -76,6 +102,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                   ),
                 ),
+              ),
+              const SizedBox(height: 10),
+              Text(
+                imagemsg,
+                style:
+                    const TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
               ),
               const SizedBox(
                 height: 20,
@@ -133,30 +165,37 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     desc.length > 4) {
                   if (_retypepasswordTextController.text ==
                       _passwordTextController.text) {
-                    try {
-                      await FirebaseAuth.instance
-                          .createUserWithEmailAndPassword(
-                              email: "user_$email", password: pass)
-                          .then((value) {
-                        fireStore.doc().set({
-                          'age': age,
-                          'email': "user_$email",
-                          'name': user,
-                          'description': desc,
-                        }).then((value) {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const Navbar()));
-                        }).onError((error, stackTrace) {
-                          setState(() {
-                            errorMsg = "something wrong.";
+                    if (imageUrl.isNotEmpty) {
+                      try {
+                        await FirebaseAuth.instance
+                            .createUserWithEmailAndPassword(
+                                email: "user_$email", password: pass)
+                            .then((value) {
+                          fireStore.doc().set({
+                            'age': age,
+                            'email': "user_$email",
+                            'name': user,
+                            'description': desc,
+                            'image': imageUrl,
+                          }).then((value) {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const Navbar()));
+                          }).onError((error, stackTrace) {
+                            setState(() {
+                              errorMsg = "something wrong.";
+                            });
                           });
                         });
-                      });
-                    } on FirebaseAuthException catch (e) {
+                      } on FirebaseAuthException catch (e) {
+                        setState(() {
+                          errorMsg = "Invalid Username or Password";
+                        });
+                      }
+                    } else {
                       setState(() {
-                        errorMsg = "Invalid Username or Password";
+                        errorMsg = "Please upload an image";
                       });
                     }
                   } else {
