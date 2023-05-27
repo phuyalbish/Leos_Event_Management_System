@@ -14,7 +14,7 @@ class _NotificationPageState extends State<NotificationPage> {
   void searchFromFirebase(String query) async {
     final result = await FirebaseFirestore.instance
         .collection('Events')
-        .where('Title_id_Array', arrayContains: query)
+        .where('Title_id_Array', arrayContains: query.toUpperCase())
         .get();
 
     setState(() {

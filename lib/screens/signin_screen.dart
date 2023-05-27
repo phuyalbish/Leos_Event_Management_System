@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api, unused_catch_clause
+
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:evento/packagelocation.dart';
@@ -80,8 +82,9 @@ class _SignInScreenState extends State<SignInScreen> {
                         try {
                           await FirebaseAuth.instance
                               .signInWithEmailAndPassword(
-                                  email: _emailTextController.text,
-                                  password: _passwordTextController.text)
+                                  email:
+                                      "user_${_emailTextController.text.trim()}",
+                                  password: _passwordTextController.text.trim())
                               .then((value) => Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -125,7 +128,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 color: Color.fromARGB(255, 0, 0, 0),
                 fontWeight: FontWeight.bold),
           ),
-        )
+        ),
       ],
     );
   }

@@ -28,7 +28,7 @@ class _NavbarState extends State<Navbar> {
                 visible: isNotificationPageVisible,
                 child: const NotificationPage()),
             Visibility(
-                visible: isWishlistPageVisible, child: const WishListPage()),
+                visible: isWishlistPageVisible, child: const SavedPage()),
             Visibility(
                 visible: isProfilePageVisible, child: const ProfilePage()),
           ]),

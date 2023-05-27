@@ -45,6 +45,7 @@ class _ProfilePageState extends State<ProfilePage> {
             },
           ),
         ),
+        const Text("who"),
         ElevatedButton(
           child: const Text("Logout"),
           onPressed: () {

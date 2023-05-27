@@ -3,6 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:evento/packagelocation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:image_picker/image_picker.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -44,7 +45,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
           child: Column(
             children: <Widget>[
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.transparent,
@@ -52,7 +53,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     borderRadius: BorderRadius.circular(200),
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () async {
+                  ImagePicker imagePicker = ImagePicker();
+                  XFile? file =
+                      await imagePicker.pickImage(source: ImageSource.camera);
+                  print('${file?.path}')
+                },
                 child: Padding(
                   padding: const EdgeInsets.all(20),
                   child: Container(
@@ -114,37 +120,54 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 height: 20,
               ),
               firebaseUIButton(context, "Sign Up", () async {
-                if (_retypepasswordTextController.text ==
-                    _passwordTextController.text) {
-                  try {
-                    await FirebaseAuth.instance
-                        .createUserWithEmailAndPassword(
-                            email: _emailTextController.text,
-                            password: _passwordTextController.text)
-                        .then((value) {
-                      fireStore.doc().set({
-                        'age': _ageTextController.text,
-                        'email': _emailTextController.text,
-                        'name': _userNameTextController.text,
-                      }).then((value) {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const Navbar()));
-                      }).onError((error, stackTrace) {
-                        setState(() {
-                          errorMsg = "something wrong.";
+                String user = _userNameTextController.text.trim();
+                String email = _emailTextController.text.trim();
+                String desc = _descTextController.text.trim();
+                String pass = _passwordTextController.text.trim();
+                String age = _ageTextController.text;
+
+                if (user.length > 4 &&
+                    pass.length > 6 &&
+                    int.parse(age) <= 100 &&
+                    int.parse(age) >= 14 &&
+                    desc.length > 4) {
+                  if (_retypepasswordTextController.text ==
+                      _passwordTextController.text) {
+                    try {
+                      await FirebaseAuth.instance
+                          .createUserWithEmailAndPassword(
+                              email: "user_$email", password: pass)
+                          .then((value) {
+                        fireStore.doc().set({
+                          'age': age,
+                          'email': "user_$email",
+                          'name': user,
+                          'description': desc,
+                        }).then((value) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const Navbar()));
+                        }).onError((error, stackTrace) {
+                          setState(() {
+                            errorMsg = "something wrong.";
+                          });
                         });
                       });
-                    });
-                  } on FirebaseAuthException catch (e) {
+                    } on FirebaseAuthException catch (e) {
+                      setState(() {
+                        errorMsg = "Invalid Username or Password";
+                      });
+                    }
+                  } else {
                     setState(() {
-                      errorMsg = "Invalid Username or Password";
+                      errorMsg = "Password didn't match.";
                     });
                   }
                 } else {
                   setState(() {
-                    errorMsg = "Password didn't match.";
+                    errorMsg =
+                        "Min Length for Name and Des should be 4 and Pass should be 6 characters, and Age between 14 to 100";
                   });
                 }
               }),
