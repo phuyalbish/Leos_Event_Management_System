@@ -240,6 +240,7 @@ class _AddEventState extends State<AddEvent> {
                         'Organizedbyimg': clubimg,
                         'Organizedbyemail': clubemail,
                         'Image': imageUrl,
+                        'Votes': 0,
                       }).then((value) {
                         Navigator.push(
                             context,

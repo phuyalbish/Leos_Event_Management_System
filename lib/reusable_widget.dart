@@ -68,6 +68,7 @@ class EventPost extends StatefulWidget {
   final String? eventorgbyimg;
   final String? eventscheduleddate;
   final String? eventpostdate;
+  final int? eventpostvote;
   const EventPost(
       {super.key,
       this.eventaddress,
@@ -77,7 +78,8 @@ class EventPost extends StatefulWidget {
       this.eventorgbyimg,
       this.eventorgbyemail,
       this.eventscheduleddate,
-      this.eventpostdate});
+      this.eventpostdate,
+      this.eventpostvote});
 
   @override
   State<EventPost> createState() => _EventPostState();
@@ -141,9 +143,22 @@ class _EventPostState extends State<EventPost> {
                     ),
                     trailing: ElevatedButton(
                       onPressed: () {},
-                      child: const ListTile(
-                        leading: Icon(Icons.details),
-                        title: Text("Details"),
+                      child: SizedBox(
+                        width: 50,
+                        height: 40,
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(top: 8.0, right: 8),
+                              child: Text(
+                                "${widget.eventpostvote!}",
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                            ),
+                            const Icon(Icons.volunteer_activism_sharp),
+                          ],
+                        ),
                       ),
                     ),
                   )),

@@ -51,6 +51,8 @@ class _SearchPageState extends State<SearchPage> {
                   eventpostname: searchResult[index]['Title'],
                   eventscheduleddate: searchResult[index]['Scheduleddate'],
                   eventpostdate: searchResult[index]['Postdate'],
+                  eventpostimage: searchResult[index]['Image'],
+                  eventpostvote: searchResult[index]['Votes'],
                 );
               },
             ),
