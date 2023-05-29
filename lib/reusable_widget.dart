@@ -1,5 +1,7 @@
 import 'package:evento/packagelocation.dart';
 
+import 'package:intl/intl.dart';
+
 TextField reusableTextField(String text, IconData icon, bool isPasswordType,
     TextEditingController controller,
     {TextInputType txttype = TextInputType.text}) {
@@ -125,35 +127,34 @@ class _EventPostState extends State<EventPost> {
                         height: 60,
                       ),
                     ),
-                    title:
-                        Text("${widget.eventorgby!}\n${widget.eventpostname!}"),
+                    title: Text(widget.eventpostname!),
                     subtitle: Row(
                       children: [
-                        Text(widget.eventscheduleddate!),
-                        const SizedBox(width: 5),
-                        Container(
-                          // height: 20,
-                          padding: const EdgeInsets.only(left: 10, right: 10),
-                          alignment: Alignment.topLeft,
-                          child: Text(
-                            widget.eventaddress!,
-                          ),
+                        Text(
+                          widget.eventorgby!,
+                          style: const TextStyle(
+                              color: Color.fromARGB(255, 48, 48, 48)),
+                        ),
+                        const Text("  "),
+                        Text(
+                          convertToAgo(widget.eventpostdate!),
+                          style: const TextStyle(fontSize: 11),
                         ),
                       ],
                     ),
                     trailing: ElevatedButton(
                       onPressed: () {},
                       child: SizedBox(
-                        width: 50,
+                        width: 40,
                         height: 40,
                         child: Row(
                           children: [
                             Padding(
                               padding:
-                                  const EdgeInsets.only(top: 8.0, right: 8),
+                                  const EdgeInsets.only(top: 8.0, right: 5),
                               child: Text(
                                 "${widget.eventpostvote!}",
-                                style: const TextStyle(fontSize: 16),
+                                style: const TextStyle(fontSize: 15),
                               ),
                             ),
                             const Icon(Icons.volunteer_activism_sharp),
@@ -167,4 +168,51 @@ class _EventPostState extends State<EventPost> {
           )),
     );
   }
+}
+
+String convertToAgo(String dateTimestr) {
+  DateTime dateTime =
+      DateFormat('yyyy-MM-DD HH:mm:ss.SSSSSSZ').parse(dateTimestr, true);
+  DateTime now = DateTime.now().toLocal();
+
+  DateTime localDateTime = dateTime.toLocal();
+
+  if (localDateTime.difference(now).inDays == 0) {
+    var differenceInHours = localDateTime.difference(now).inHours.abs();
+    var differenceInMins = localDateTime.difference(now).inMinutes.abs();
+
+    if (differenceInHours > 0) {
+      return '$differenceInHours hours ago';
+    } else if (differenceInMins > 2) {
+      return '$differenceInMins mins ago';
+    } else {
+      return 'Just now';
+    }
+  }
+
+  String roughTimeString = DateFormat('jm').format(dateTime);
+
+  if (localDateTime.day == now.day &&
+      localDateTime.month == now.month &&
+      localDateTime.year == now.year) {
+    return roughTimeString;
+  }
+
+  DateTime yesterday = now.subtract(const Duration(days: 1));
+
+  if (localDateTime.day == yesterday.day &&
+      localDateTime.month == now.month &&
+      localDateTime.year == now.year) {
+    return 'Yesterday';
+  }
+
+  if (now.difference(localDateTime).inDays < 4) {
+    String weekday = DateFormat(
+      'EEEE',
+    ).format(localDateTime);
+
+    return '$weekday, $roughTimeString';
+  }
+
+  return '${DateFormat('yMd').format(dateTime)}, $roughTimeString';
 }

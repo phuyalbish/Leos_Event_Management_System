@@ -209,7 +209,7 @@ class _AddEventState extends State<AddEvent> {
                         } else {}
                       },
                     ))),
-                firebaseUIButton(context, "Create Club", () async {
+                firebaseUIButton(context, "Add  Event", () async {
                   String title = _eventtitleTextController.text.trim();
                   String desc = _eventdescTextController.text.trim();
                   String address = _eventaddressTextController.text.trim();
@@ -223,7 +223,11 @@ class _AddEventState extends State<AddEvent> {
                   for (var j = 1; j < wordsnum.length; j++) {
                     arrayoftitle.add(wordsnum[j].toUpperCase());
                   }
-                  if (title.length > 4 && desc.length > 4) {
+                  if (title.length > 4 &&
+                      desc.length > 4 &&
+                      address.length > 4 &&
+                      venue.length > 4 &&
+                      _scheduleddateTextController.text != "") {
                     if (imageUrl.isNotEmpty) {
                       _eventtitleTextController.text = "";
                       _eventdescTextController.text = "";
