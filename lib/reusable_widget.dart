@@ -139,7 +139,13 @@ class _EventPostState extends State<EventPost> {
                         ),
                       ],
                     ),
-                    trailing: const Icon(Icons.filter_list),
+                    trailing: ElevatedButton(
+                      onPressed: () {},
+                      child: const ListTile(
+                        leading: Icon(Icons.details),
+                        title: Text("Details"),
+                      ),
+                    ),
                   )),
               const SizedBox(height: 10),
             ],

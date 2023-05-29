@@ -38,6 +38,7 @@ class _HomePageState extends State<HomePage> {
               eventpostname: searchResult[index]['Title'],
               eventscheduleddate: searchResult[index]['Scheduleddate'],
               eventpostdate: searchResult[index]['Postdate'],
+              eventpostimage: searchResult[index]['Image'],
             );
           },
         ),
