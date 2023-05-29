@@ -188,6 +188,7 @@ class _AddClubsState extends State<AddClubs> {
                               });
                             });
                           });
+                          // ignore: unused_catch_clause
                         } on FirebaseAuthException catch (e) {
                           setState(() {
                             errorMsg = "Invalid User Email or Password";

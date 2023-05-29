@@ -63,8 +63,13 @@ class EventPost extends StatefulWidget {
   final String? eventpostname;
   final String? eventorgby;
   final String? eventaddress;
+  final String? eventpostimage;
   const EventPost(
-      {super.key, this.eventaddress, this.eventorgby, this.eventpostname});
+      {super.key,
+      this.eventaddress,
+      this.eventorgby,
+      this.eventpostname,
+      this.eventpostimage});
 
   @override
   State<EventPost> createState() => _EventPostState();
@@ -89,8 +94,8 @@ class _EventPostState extends State<EventPost> {
                   topLeft: Radius.circular(19),
                   topRight: Radius.circular(19),
                 ),
-                child: Image.asset(
-                  "assets/images/bg1.jpg",
+                child: Image.network(
+                  "${widget.eventpostimage}",
                   width: MediaQuery.of(context).size.width,
                   fit: BoxFit.cover,
                   height: 200,

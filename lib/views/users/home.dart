@@ -34,6 +34,7 @@ class _HomePageState extends State<HomePage> {
               eventaddress: searchResult[index]['Address'],
               eventorgby: searchResult[index]['Organizedby'],
               eventpostname: searchResult[index]['Title'],
+              eventpostimage: searchResult[index]['Image'],
             );
           },
         ),
