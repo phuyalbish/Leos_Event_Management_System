@@ -47,6 +47,7 @@ class _SearchPageState extends State<SearchPage> {
                   eventaddress: searchResult[index]['Address'],
                   eventorgby: searchResult[index]['Organizedby'],
                   eventpostname: searchResult[index]['Title'],
+                  eventpostimage: searchResult[index]['Image'],
                 );
               },
             ),

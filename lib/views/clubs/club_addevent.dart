@@ -29,10 +29,11 @@ class _AddEventState extends State<AddEvent> {
   String imagemsg = "";
 
   List searchResult = [];
+  String clubname = "";
   String emails = FirebaseAuth.instance.currentUser!.email.toString();
   void searchFromFirebase() async {
     final result = await FirebaseFirestore.instance
-        .collection('Users')
+        .collection('Clubs')
         .where('email', isEqualTo: emails)
         .get();
     if (mounted) {
@@ -44,6 +45,7 @@ class _AddEventState extends State<AddEvent> {
 
   @override
   Widget build(BuildContext context) {
+    searchFromFirebase();
     return SingleChildScrollView(
       child: SizedBox(
           height: MediaQuery.of(context).size.height * 0.89,
@@ -135,10 +137,50 @@ class _AddEventState extends State<AddEvent> {
                 const SizedBox(
                   height: 20,
                 ),
-                reusableTextField(
-                    "Enter Event Venue", Icons.pin, false, _venueTextController,
+                reusableTextField("Enter Event Venue", Icons.pin_drop, false,
+                    _venueTextController,
                     txttype: TextInputType.text),
+                const SizedBox(
+                  height: 20,
+                ),
                 Container(
+                  height: 50,
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                      color:
+                          const Color.fromARGB(255, 0, 0, 0).withOpacity(0.6),
+                      borderRadius: BorderRadius.circular(50)),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Row(
+                      children: [
+                        const Icon(
+                          Icons.group,
+                          color: Colors.white70,
+                        ),
+                        const SizedBox(
+                          width: 15,
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height,
+                          width: MediaQuery.of(context).size.width * 0.7,
+                          child: ListView.builder(
+                            itemCount: searchResult.length,
+                            itemBuilder: (context, index) {
+                              clubname = searchResult[index]['name'];
+                              return Text(
+                                clubname,
+                                style: const TextStyle(
+                                    fontSize: 18, color: Colors.white70),
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(
                     height: MediaQuery.of(context).size.width / 3,
                     child: Center(
                         child: TextField(
@@ -190,8 +232,7 @@ class _AddEventState extends State<AddEvent> {
                         'Scheduleddate': _scheduleddateTextController.text,
                         'Postdate': DateTime.now().toString(),
                         'Title_id_Array': arrayoftitle,
-                        'Organizedby':
-                            FirebaseAuth.instance.currentUser!.email.toString(),
+                        'Organizedby': clubname,
                         'Image': imageUrl,
                       }).then((value) {
                         Navigator.push(
