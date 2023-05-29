@@ -168,23 +168,36 @@ class _AddEventState extends State<AddEvent> {
                   String desc = _eventdescTextController.text.trim();
                   String address = _eventaddressTextController.text.trim();
                   String venue = _venueTextController.text.trim();
+
+                  List wordsnum = title.split(" ");
+                  List<String> arrayoftitle = [];
+                  for (int i = 1; i <= title.length; i++) {
+                    arrayoftitle.add(title.substring(0, i).toUpperCase());
+                  }
+                  for (var j = 1; j < wordsnum.length; j++) {
+                    arrayoftitle.add(wordsnum[j].toUpperCase());
+                  }
                   if (title.length > 4 && desc.length > 4) {
                     if (imageUrl.isNotEmpty) {
+                      _eventtitleTextController.text = "";
+                      _eventdescTextController.text = "";
+                      _eventaddressTextController.text = "";
                       fireStore.doc().set({
-                        'title': title,
-                        'addredd': address,
-                        'description': desc,
-                        'venue': venue,
-                        'scheduleddate':
-                            DateFormat(_scheduleddateTextController.text),
-                        'postdate': DateTime.now(),
-                        'club': "",
-                        'image': imageUrl,
+                        'Title': title,
+                        'Address': address,
+                        'Description': desc,
+                        'Venue': venue,
+                        'Scheduleddate': _scheduleddateTextController.text,
+                        'Postdate': DateTime.now().toString(),
+                        'Title_id_Array': arrayoftitle,
+                        'Organizedby':
+                            FirebaseAuth.instance.currentUser!.email.toString(),
+                        'Image': imageUrl,
                       }).then((value) {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const AdminNavbar()));
+                                builder: (context) => const ClubNavBar()));
                       }).onError((error, stackTrace) {
                         setState(() {
                           errorMsg = "something wrong.";

@@ -110,8 +110,7 @@ class _EventPostState extends State<EventPost> {
                         height: 60,
                       ),
                     ),
-                    title:
-                        Text("${widget.eventorgby!}\n${widget.eventpostname!}"),
+                    title: Text("\n${widget.eventpostname!}"),
                     subtitle: Row(
                       children: [
                         const Text("Feb 2"),
