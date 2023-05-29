@@ -64,12 +64,20 @@ class EventPost extends StatefulWidget {
   final String? eventorgby;
   final String? eventaddress;
   final String? eventpostimage;
+  final String? eventorgbyemail;
+  final String? eventorgbyimg;
+  final String? eventscheduleddate;
+  final String? eventpostdate;
   const EventPost(
       {super.key,
       this.eventaddress,
       this.eventorgby,
       this.eventpostname,
-      this.eventpostimage});
+      this.eventpostimage,
+      this.eventorgbyimg,
+      this.eventorgbyemail,
+      this.eventscheduleddate,
+      this.eventpostdate});
 
   @override
   State<EventPost> createState() => _EventPostState();
@@ -108,34 +116,31 @@ class _EventPostState extends State<EventPost> {
                     contentPadding: const EdgeInsets.all(0),
                     leading: ClipRRect(
                       borderRadius: BorderRadius.circular(50),
-                      child: Image.asset(
-                        "assets/images/profile.jpg",
+                      child: Image.network(
+                        "${widget.eventorgbyimg}",
                         width: 60,
                         fit: BoxFit.cover,
                         height: 60,
                       ),
                     ),
-                    title: Text("\n${widget.eventpostname!}"),
+                    title:
+                        Text("${widget.eventorgby!}\n${widget.eventpostname!}"),
                     subtitle: Row(
                       children: [
-                        const Text("Feb 2"),
+                        Text(widget.eventscheduleddate!),
                         const SizedBox(width: 5),
-                        Image.asset(
-                          "assets/images/profile.jpg",
-                          width: 14,
+                        Container(
+                          // height: 20,
+                          padding: const EdgeInsets.only(left: 10, right: 10),
+                          alignment: Alignment.topLeft,
+                          child: Text(
+                            widget.eventaddress!,
+                          ),
                         ),
                       ],
                     ),
                     trailing: const Icon(Icons.filter_list),
                   )),
-              Container(
-                // height: 20,
-                padding: const EdgeInsets.only(left: 10, right: 10),
-                alignment: Alignment.topLeft,
-                child: Text(
-                  widget.eventaddress!,
-                ),
-              ),
               const SizedBox(height: 10),
             ],
           )),

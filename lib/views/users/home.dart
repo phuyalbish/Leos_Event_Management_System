@@ -33,8 +33,11 @@ class _HomePageState extends State<HomePage> {
             return EventPost(
               eventaddress: searchResult[index]['Address'],
               eventorgby: searchResult[index]['Organizedby'],
+              eventorgbyimg: searchResult[index]['Organizedbyimg'],
+              eventorgbyemail: searchResult[index]['Organizedbyemail'],
               eventpostname: searchResult[index]['Title'],
-              eventpostimage: searchResult[index]['Image'],
+              eventscheduleddate: searchResult[index]['Scheduleddate'],
+              eventpostdate: searchResult[index]['Postdate'],
             );
           },
         ),

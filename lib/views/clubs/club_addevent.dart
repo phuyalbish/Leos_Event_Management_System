@@ -30,6 +30,8 @@ class _AddEventState extends State<AddEvent> {
 
   List searchResult = [];
   String clubname = "";
+  String clubimg = "";
+  String clubemail = "";
   String emails = FirebaseAuth.instance.currentUser!.email.toString();
   void searchFromFirebase() async {
     final result = await FirebaseFirestore.instance
@@ -168,6 +170,8 @@ class _AddEventState extends State<AddEvent> {
                             itemCount: searchResult.length,
                             itemBuilder: (context, index) {
                               clubname = searchResult[index]['name'];
+                              clubimg = searchResult[index]['image'];
+                              clubemail = searchResult[index]['email'];
                               return Text(
                                 clubname,
                                 style: const TextStyle(
@@ -233,6 +237,8 @@ class _AddEventState extends State<AddEvent> {
                         'Postdate': DateTime.now().toString(),
                         'Title_id_Array': arrayoftitle,
                         'Organizedby': clubname,
+                        'Organizedbyimg': clubimg,
+                        'Organizedbyemail': clubemail,
                         'Image': imageUrl,
                       }).then((value) {
                         Navigator.push(
