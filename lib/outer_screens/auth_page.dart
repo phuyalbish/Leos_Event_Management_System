@@ -10,7 +10,17 @@ class AuthPage extends StatelessWidget {
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return const Navbar();
+          if (FirebaseAuth.instance.currentUser!.email.toString() ==
+              "admin@gmail.com") {
+            return const AdminNavbar();
+          } else if (FirebaseAuth.instance.currentUser!.email
+                  .toString()
+                  .substring(0, 5) ==
+              "club_") {
+            return const ClubNavBar();
+          } else {
+            return const Navbar();
+          }
         } else {
           return const SignInScreen();
         }

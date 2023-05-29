@@ -67,8 +67,8 @@ class _SignInScreenState extends State<SignInScreen> {
                       const SizedBox(
                         height: 30,
                       ),
-                      reusableTextField("Enter Email", Icons.person_outline,
-                          false, _emailTextController),
+                      reusableTextField("Enter Email", Icons.email, false,
+                          _emailTextController),
                       const SizedBox(
                         height: 20,
                       ),
@@ -124,6 +124,21 @@ class _SignInScreenState extends State<SignInScreen> {
           },
           child: const Text(
             " Sign Up",
+            style: TextStyle(
+                color: Color.fromARGB(255, 0, 0, 0),
+                fontWeight: FontWeight.bold),
+          ),
+        ),
+        const SizedBox(width: 5),
+        const Text("/"),
+        const SizedBox(width: 5),
+        GestureDetector(
+          onTap: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const AdminSignIn()));
+          },
+          child: const Text(
+            "Signin as Club",
             style: TextStyle(
                 color: Color.fromARGB(255, 0, 0, 0),
                 fontWeight: FontWeight.bold),

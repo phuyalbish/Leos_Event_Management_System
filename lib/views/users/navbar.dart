@@ -12,7 +12,7 @@ class Navbar extends StatefulWidget {
 
 class _NavbarState extends State<Navbar> {
   bool isHomePageVisible = true;
-  bool isNotificationPageVisible = false;
+  bool isSearchPageVisible = false;
   bool isProfilePageVisible = false;
   bool isWishlistPageVisible = false;
 
@@ -24,9 +24,7 @@ class _NavbarState extends State<Navbar> {
         children: [
           Column(children: [
             Visibility(visible: isHomePageVisible, child: const HomePage()),
-            Visibility(
-                visible: isNotificationPageVisible,
-                child: const NotificationPage()),
+            Visibility(visible: isSearchPageVisible, child: const SearchPage()),
             Visibility(
                 visible: isWishlistPageVisible, child: const SavedPage()),
             Visibility(
@@ -56,7 +54,7 @@ class _NavbarState extends State<Navbar> {
                       text: "Home",
                       onPressed: () {
                         setState(() {
-                          isNotificationPageVisible = false;
+                          isSearchPageVisible = false;
                           isHomePageVisible = true;
                           isProfilePageVisible = false;
                           isWishlistPageVisible = false;
@@ -68,7 +66,7 @@ class _NavbarState extends State<Navbar> {
                       text: "WishList",
                       onPressed: () {
                         setState(() {
-                          isNotificationPageVisible = false;
+                          isSearchPageVisible = false;
                           isHomePageVisible = false;
                           isProfilePageVisible = false;
                           isWishlistPageVisible = true;
@@ -80,7 +78,7 @@ class _NavbarState extends State<Navbar> {
                       text: "Search",
                       onPressed: () {
                         setState(() {
-                          isNotificationPageVisible = true;
+                          isSearchPageVisible = true;
                           isHomePageVisible = false;
                           isProfilePageVisible = false;
                           isWishlistPageVisible = false;
@@ -92,7 +90,7 @@ class _NavbarState extends State<Navbar> {
                       text: "Profile",
                       onPressed: () {
                         setState(() {
-                          isNotificationPageVisible = false;
+                          isSearchPageVisible = false;
                           isHomePageVisible = false;
                           isProfilePageVisible = true;
                           isWishlistPageVisible = false;

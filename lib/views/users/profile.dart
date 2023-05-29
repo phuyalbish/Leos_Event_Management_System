@@ -32,14 +32,14 @@ class _ProfilePageState extends State<ProfilePage> {
     return Center(
         child: Column(
       children: [
-        SizedBox(
+        const SizedBox(
           height: 20,
         ),
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.4,
           width: MediaQuery.of(context).size.width * 1,
           child: ListView.builder(
-            physics: NeverScrollableScrollPhysics(),
+            physics: const NeverScrollableScrollPhysics(),
             itemCount: searchResult.length,
             itemBuilder: (context, index) {
               return Column(

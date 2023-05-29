@@ -27,17 +27,15 @@ class _HomePageState extends State<HomePage> {
     return SingleChildScrollView(
       child: SizedBox(
         height: MediaQuery.of(context).size.height * 0.89,
-        child: Expanded(
-          child: ListView.builder(
-            itemCount: searchResult.length,
-            itemBuilder: (context, index) {
-              return EventPost(
-                eventaddress: searchResult[index]['Address'],
-                eventorgby: searchResult[index]['Organizedby'],
-                eventpostname: searchResult[index]['Title'],
-              );
-            },
-          ),
+        child: ListView.builder(
+          itemCount: searchResult.length,
+          itemBuilder: (context, index) {
+            return EventPost(
+              eventaddress: searchResult[index]['Address'],
+              eventorgby: searchResult[index]['Organizedby'],
+              eventpostname: searchResult[index]['Title'],
+            );
+          },
         ),
       ),
     );

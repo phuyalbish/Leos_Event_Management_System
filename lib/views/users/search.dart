@@ -2,14 +2,14 @@ import 'package:evento/packagelocation.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class NotificationPage extends StatefulWidget {
-  const NotificationPage({super.key});
+class SearchPage extends StatefulWidget {
+  const SearchPage({super.key});
 
   @override
-  State<NotificationPage> createState() => _NotificationPageState();
+  State<SearchPage> createState() => _SearchPageState();
 }
 
-class _NotificationPageState extends State<NotificationPage> {
+class _SearchPageState extends State<SearchPage> {
   List searchResult = [];
   void searchFromFirebase(String query) async {
     final result = await FirebaseFirestore.instance
@@ -40,17 +40,15 @@ class _NotificationPageState extends State<NotificationPage> {
         SingleChildScrollView(
           child: SizedBox(
             height: MediaQuery.of(context).size.height * 0.785,
-            child: Expanded(
-              child: ListView.builder(
-                itemCount: searchResult.length,
-                itemBuilder: (context, index) {
-                  return EventPost(
-                    eventaddress: searchResult[index]['Address'],
-                    eventorgby: searchResult[index]['Organizedby'],
-                    eventpostname: searchResult[index]['Title'],
-                  );
-                },
-              ),
+            child: ListView.builder(
+              itemCount: searchResult.length,
+              itemBuilder: (context, index) {
+                return EventPost(
+                  eventaddress: searchResult[index]['Address'],
+                  eventorgby: searchResult[index]['Organizedby'],
+                  eventpostname: searchResult[index]['Title'],
+                );
+              },
             ),
           ),
         ),
