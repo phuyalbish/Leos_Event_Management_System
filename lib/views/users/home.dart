@@ -10,38 +10,36 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List searchResult = [];
-  void searchFromFirebase() async {
-    final result = await FirebaseFirestore.instance.collection('Events').get();
+  // List searchResult = [];
+  // void searchFromFirebase() async {
+  //   final result = await FirebaseFirestore.instance.collection('Events').get();
 
-    if (mounted) {
-      setState(() {
-        searchResult = result.docs.map((e) => e.data()).toList();
-      });
-    }
-  }
+  //   if (mounted) {
+  //     setState(() {
+  //       searchResult = result.docs.map((e) => e.data()).toList();
+  //     });
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
-    searchFromFirebase();
+    // searchFromFirebase();
     return SingleChildScrollView(
       child: SizedBox(
         height: MediaQuery.of(context).size.height * 0.89,
-        child: ListView.builder(
-          itemCount: searchResult.length,
-          itemBuilder: (context, index) {
-            return EventPost(
-              eventaddress: searchResult[index]['Address'],
-              eventorgby: searchResult[index]['Organizedby'],
-              eventorgbyimg: searchResult[index]['Organizedbyimg'],
-              eventorgbyemail: searchResult[index]['Organizedbyemail'],
-              eventpostname: searchResult[index]['Title'],
-              eventscheduleddate: searchResult[index]['Scheduleddate'],
-              eventpostdate: searchResult[index]['Postdate'],
-              eventpostimage: searchResult[index]['Image'],
-              eventpostvote: searchResult[index]['Votes'],
+        child: StreamBuilder(
+          stream: FirebaseFirestore.instance.collection('Events').snapshots(),
+          builder: ((context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+            if (!streamSnapshot.hasData) return const Text('Loading...');
+            return ListView.builder(
+              itemCount: streamSnapshot.data?.docs.length,
+              itemBuilder: (context, index) {
+                final DocumentSnapshot documentSnapshot =
+                    streamSnapshot.data!.docs[index];
+                return buildEvent(context, documentSnapshot);
+              },
             );
-          },
+          }),
         ),
       ),
     );

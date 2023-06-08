@@ -43,7 +43,7 @@ class _SearchPageState extends State<SearchPage> {
             child: ListView.builder(
               itemCount: searchResult.length,
               itemBuilder: (context, index) {
-                return EventPost(
+                return EventPostSearch(
                   eventaddress: searchResult[index]['Address'],
                   eventorgby: searchResult[index]['Organizedby'],
                   eventorgbyimg: searchResult[index]['Organizedbyimg'],

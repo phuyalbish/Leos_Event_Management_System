@@ -217,6 +217,7 @@ class _AddEventState extends State<AddEvent> {
 
                   List wordsnum = title.split(" ");
                   List<String> arrayoftitle = [];
+                  List<String> arrayofvoters = [""];
                   for (int i = 1; i <= title.length; i++) {
                     arrayoftitle.add(title.substring(0, i).toUpperCase());
                   }
@@ -245,6 +246,7 @@ class _AddEventState extends State<AddEvent> {
                         'Organizedbyemail': clubemail,
                         'Image': imageUrl,
                         'Votes': 0,
+                        'Voters': arrayofvoters,
                       }).then((value) {
                         Navigator.push(
                             context,
