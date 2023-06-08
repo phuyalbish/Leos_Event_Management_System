@@ -160,6 +160,8 @@ Widget buildEvent(BuildContext context, DocumentSnapshot document) {
                         }
                       }
                       if (count == 1) {
+                        document.reference.update(
+                            {'Voters': FieldValue.arrayRemove(voterslist)});
                         document.reference
                             .update({'Votes': document['Votes'] - 1});
                       } else {
