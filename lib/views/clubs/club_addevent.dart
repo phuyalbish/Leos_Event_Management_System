@@ -268,7 +268,7 @@ class _AddEventState extends State<AddEvent> {
                 const SizedBox(
                   height: 5,
                 ),
-                Text(errorMsg, style: TextStyle(color: Colors.black)),
+                Text(errorMsg, style: const TextStyle(color: Colors.black)),
                 const SizedBox(
                   height: 5,
                 ),

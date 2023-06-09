@@ -18,6 +18,7 @@ class _AdminNavbarState extends State<AdminNavbar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 231, 231, 236),
       body: SafeArea(
           child: Stack(
         children: [

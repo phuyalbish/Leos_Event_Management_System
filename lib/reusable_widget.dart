@@ -70,7 +70,8 @@ Widget buildEvent(BuildContext context, DocumentSnapshot document) {
         margin: const EdgeInsets.only(top: 20),
         // padding: const EdgeInsets.only(left: 10, right: 10),
         decoration: BoxDecoration(
-            border: Border.all(width: 1),
+            color: Colors.white,
+            border: Border.all(width: 1, color: Colors.blueAccent),
             borderRadius: BorderRadius.circular(20)),
         child: Column(
           children: [
@@ -248,7 +249,7 @@ class _EventPostSearchState extends State<EventPostSearch> {
           margin: const EdgeInsets.only(top: 20),
           // padding: const EdgeInsets.only(left: 10, right: 10),
           decoration: BoxDecoration(
-              border: Border.all(width: 1),
+              border: Border.all(width: 1, color: Colors.blueAccent),
               borderRadius: BorderRadius.circular(20)),
           child: Column(
             children: [
@@ -312,7 +313,7 @@ Widget buildClub(BuildContext context, DocumentSnapshot document) {
         margin: const EdgeInsets.only(top: 20),
         // padding: const EdgeInsets.only(left: 10, right: 10),
         decoration: BoxDecoration(
-            border: Border.all(width: 1),
+            border: Border.all(width: 1, color: Colors.blueAccent),
             borderRadius: BorderRadius.circular(20)),
         child: Column(
           children: [

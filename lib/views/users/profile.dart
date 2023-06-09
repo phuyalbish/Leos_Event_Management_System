@@ -44,13 +44,19 @@ class _ProfilePageState extends State<ProfilePage> {
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
                             ),
-                            child: FadeInImage.assetNetwork(
-                              placeholder: 'assets/images/default_user.jpg',
-                              image: "${documentSnapshot['image']}",
-                              width: MediaQuery.of(context).size.width,
-                              fit: BoxFit.cover,
-                              height: 200,
+                            child: CircleAvatar(
+                              radius: 30.0,
+                              backgroundImage:
+                                  NetworkImage("${documentSnapshot['image']}"),
+                              backgroundColor: Colors.transparent,
                             ),
+                            // child: FadeInImage.assetNetwork(
+                            //   placeholder: 'assets/images/default_user.jpg',
+                            //   image: "${documentSnapshot['image']}",
+                            //   width: MediaQuery.of(context).size.width,
+                            //   fit: BoxFit.cover,
+                            //   height: 200,
+                            // ),
                           ),
                           const SizedBox(
                             height: 40,
