@@ -1,6 +1,5 @@
 import 'package:evento/packagelocation.dart';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

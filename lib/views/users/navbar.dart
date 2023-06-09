@@ -1,8 +1,4 @@
-// ignore_for_file: file_names
-
 import 'package:evento/packagelocation.dart';
-
-import 'package:google_nav_bar/google_nav_bar.dart';
 
 class Navbar extends StatefulWidget {
   const Navbar({super.key});
@@ -15,6 +11,7 @@ class _NavbarState extends State<Navbar> {
   bool isSearchPageVisible = false;
   bool isProfilePageVisible = false;
   bool isWishlistPageVisible = false;
+  bool isTopPageVisible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +26,7 @@ class _NavbarState extends State<Navbar> {
                 visible: isWishlistPageVisible, child: const SavedPage()),
             Visibility(
                 visible: isProfilePageVisible, child: const ProfilePage()),
+            Visibility(visible: isTopPageVisible, child: const TopPage()),
           ]),
           Positioned(
             bottom: 0,
@@ -42,7 +40,6 @@ class _NavbarState extends State<Navbar> {
                 child: GNav(
                   color: const Color.fromARGB(255, 255, 255, 255),
                   activeColor: const Color.fromARGB(255, 255, 255, 255),
-                  // tabBackgroundColor: Colors.grey,
                   tabActiveBorder: Border.all(
                       color: const Color.fromARGB(255, 255, 255, 255),
                       width: 1),
@@ -54,22 +51,24 @@ class _NavbarState extends State<Navbar> {
                       text: "Home",
                       onPressed: () {
                         setState(() {
-                          isSearchPageVisible = false;
                           isHomePageVisible = true;
+                          isSearchPageVisible = false;
                           isProfilePageVisible = false;
                           isWishlistPageVisible = false;
+                          isTopPageVisible = false;
                         });
                       },
                     ),
                     GButton(
-                      icon: Icons.list,
-                      text: "WishList",
+                      icon: Icons.volunteer_activism_sharp,
+                      text: "Volunter",
                       onPressed: () {
                         setState(() {
+                          isWishlistPageVisible = true;
                           isSearchPageVisible = false;
                           isHomePageVisible = false;
                           isProfilePageVisible = false;
-                          isWishlistPageVisible = true;
+                          isTopPageVisible = false;
                         });
                       },
                     ),
@@ -82,6 +81,7 @@ class _NavbarState extends State<Navbar> {
                           isHomePageVisible = false;
                           isProfilePageVisible = false;
                           isWishlistPageVisible = false;
+                          isTopPageVisible = false;
                         });
                       },
                     ),
@@ -94,6 +94,7 @@ class _NavbarState extends State<Navbar> {
                           isHomePageVisible = false;
                           isProfilePageVisible = true;
                           isWishlistPageVisible = false;
+                          isTopPageVisible = false;
                         });
                       },
                     ),
@@ -104,72 +105,6 @@ class _NavbarState extends State<Navbar> {
           ),
         ],
       )),
-      // bottomNavigationBar: Container(
-      //   height: MediaQuery.of(context).size.height * 0.09,
-      //   color: const Color.fromARGB(255, 94, 60, 60),
-      //   child: Padding(
-      //     padding: const EdgeInsets.all(10),
-      //     child: GNav(
-      //       color: const Color.fromARGB(255, 255, 255, 255),
-      //       activeColor: const Color.fromARGB(255, 255, 255, 255),
-      //       // tabBackgroundColor: Colors.grey,
-      //       tabActiveBorder: Border.all(
-      //           color: const Color.fromARGB(255, 255, 255, 255), width: 1),
-      //       gap: 8,
-      //       padding: const EdgeInsets.all(10),
-      //       tabs: [
-      //         GButton(
-      //           icon: Icons.home,
-      //           text: "Home",
-      //           onPressed: () {
-      //             setState(() {
-      //               isNotificationPageVisible = false;
-      //               isHomePageVisible = true;
-      //               isProfilePageVisible = false;
-      //               isWishlistPageVisible = false;
-      //             });
-      //           },
-      //         ),
-      //         GButton(
-      //           icon: Icons.list,
-      //           text: "WishList",
-      //           onPressed: () {
-      //             setState(() {
-      //               isNotificationPageVisible = false;
-      //               isHomePageVisible = false;
-      //               isProfilePageVisible = false;
-      //               isWishlistPageVisible = true;
-      //             });
-      //           },
-      //         ),
-      //         GButton(
-      //           icon: Icons.search,
-      //           text: "Search",
-      //           onPressed: () {
-      //             setState(() {
-      //               isNotificationPageVisible = true;
-      //               isHomePageVisible = false;
-      //               isProfilePageVisible = false;
-      //               isWishlistPageVisible = false;
-      //             });
-      //           },
-      //         ),
-      //         GButton(
-      //           icon: Icons.person,
-      //           text: "Profile",
-      //           onPressed: () {
-      //             setState(() {
-      //               isNotificationPageVisible = false;
-      //               isHomePageVisible = false;
-      //               isProfilePageVisible = true;
-      //               isWishlistPageVisible = false;
-      //             });
-      //           },
-      //         ),
-      //       ],
-      //     ),
-      //   ),
-      // ),
     );
   }
 }

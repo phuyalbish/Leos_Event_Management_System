@@ -1,5 +1,4 @@
 import 'package:evento/packagelocation.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class PersonPage extends StatefulWidget {
   const PersonPage({super.key});

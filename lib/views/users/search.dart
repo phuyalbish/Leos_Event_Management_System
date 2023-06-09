@@ -1,7 +1,5 @@
 import 'package:evento/packagelocation.dart';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
 

@@ -1,8 +1,5 @@
 import 'package:evento/packagelocation.dart';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:intl/intl.dart';
 
 TextField reusableTextField(String text, IconData icon, bool isPasswordType,
@@ -63,37 +60,6 @@ Container firebaseUIButton(BuildContext context, String title, Function onTap) {
     ),
   );
 }
-
-// class EventPost extends StatefulWidget {
-//   // final String? eventpostname;
-//   // final String? eventorgby;
-//   // final String? eventaddress;
-//   // final String? eventpostimage;
-//   // final String? eventorgbyemail;
-//   // final String? eventorgbyimg;
-//   // final String? eventscheduleddate;
-//   // final String? eventpostdate;
-//   // final int? eventpostvote;
-//   const EventPost(
-//       //     {super.key,
-//       //     this.eventaddress,
-//       //     this.eventorgby,
-//       //     this.eventpostname,
-//       //     this.eventpostimage,
-//       //     this.eventorgbyimg,
-//       //     this.eventorgbyemail,
-//       //     this.eventscheduleddate,
-//       //     this.eventpostdate,
-//       //     this.eventpostvote,}
-
-//       BuildContext context,
-//       DocumentSnapshot document);
-
-//   @override
-//   State<EventPost> createState() => _EventPostState();
-// }
-
-// class _EventPostState extends State<EventPost> {
 
 Widget buildEvent(BuildContext context, DocumentSnapshot document) {
   String curEmails = FirebaseAuth.instance.currentUser!.email.toString();

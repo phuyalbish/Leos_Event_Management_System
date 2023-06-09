@@ -1,6 +1,4 @@
-// ignore_for_file: library_private_types_in_public_api, unused_catch_clause
-
-import 'package:firebase_auth/firebase_auth.dart';
+// ignore_for_file: unused_catch_clause
 
 import 'package:evento/packagelocation.dart';
 // import 'package:evento/screens/home_screen.dart';

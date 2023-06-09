@@ -1,5 +1,4 @@
 import 'package:evento/packagelocation.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class ClubProfile extends StatefulWidget {
   const ClubProfile({super.key});

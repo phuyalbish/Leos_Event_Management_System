@@ -1,7 +1,5 @@
 import 'package:evento/packagelocation.dart';
 
-import 'package:google_nav_bar/google_nav_bar.dart';
-
 class ClubNavBar extends StatefulWidget {
   const ClubNavBar({super.key});
 

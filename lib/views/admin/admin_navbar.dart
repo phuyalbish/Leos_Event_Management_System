@@ -2,8 +2,6 @@
 
 import 'package:evento/packagelocation.dart';
 
-import 'package:google_nav_bar/google_nav_bar.dart';
-
 class AdminNavbar extends StatefulWidget {
   const AdminNavbar({super.key});
 

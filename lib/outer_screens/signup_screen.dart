@@ -1,10 +1,6 @@
-// ignore_for_file: library_private_types_in_public_api, unused_catch_clause
+// ignore_for_file: unused_catch_clause
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:evento/packagelocation.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 
 import 'dart:io';
 
