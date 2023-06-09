@@ -11,7 +11,7 @@ class _PersonPageState extends State<PersonPage> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.89,
+      height: MediaQuery.of(context).size.height * 0.91,
       width: MediaQuery.of(context).size.width,
       child: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -33,6 +33,30 @@ class _PersonPageState extends State<PersonPage> {
                   },
                 ),
               ),
+              SingleChildScrollView(
+                child: SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.81,
+                  child: StreamBuilder(
+                    stream: FirebaseFirestore.instance
+                        .collection('Clubs')
+                        .snapshots(),
+                    builder: ((context,
+                        AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                      if (!streamSnapshot.hasData)
+                        return const Text('Loading...');
+                      return ListView.builder(
+                        itemCount: streamSnapshot.data?.docs.length,
+                        itemBuilder: (context, index) {
+                          final DocumentSnapshot documentSnapshot =
+                              streamSnapshot.data!.docs[index];
+                          return buildClub(context, documentSnapshot);
+                          // return Text(documentSnapshot["name"]);
+                        },
+                      );
+                    }),
+                  ),
+                ),
+              )
             ],
           ),
         ),

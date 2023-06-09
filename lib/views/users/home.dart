@@ -1,6 +1,5 @@
 import 'package:evento/packagelocation.dart';
 
-
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -9,17 +8,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  // List searchResult = [];
-  // void searchFromFirebase() async {
-  //   final result = await FirebaseFirestore.instance.collection('Events').get();
-
-  //   if (mounted) {
-  //     setState(() {
-  //       searchResult = result.docs.map((e) => e.data()).toList();
-  //     });
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
     // searchFromFirebase();

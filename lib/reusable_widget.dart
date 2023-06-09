@@ -79,8 +79,9 @@ Widget buildEvent(BuildContext context, DocumentSnapshot document) {
                 topLeft: Radius.circular(19),
                 topRight: Radius.circular(19),
               ),
-              child: Image.network(
-                "${document['Image']}",
+              child: FadeInImage.assetNetwork(
+                placeholder: 'assets/images/default_event.png',
+                image: "${document['Image']}",
                 width: MediaQuery.of(context).size.width,
                 fit: BoxFit.cover,
                 height: 200,
@@ -93,8 +94,9 @@ Widget buildEvent(BuildContext context, DocumentSnapshot document) {
                   contentPadding: const EdgeInsets.all(0),
                   leading: ClipRRect(
                     borderRadius: BorderRadius.circular(50),
-                    child: Image.network(
-                      "${document['Organizedbyimg']}",
+                    child: FadeInImage.assetNetwork(
+                      placeholder: 'assets/images/default_club.png',
+                      image: "${document['Organizedbyimg']}",
                       width: 60,
                       fit: BoxFit.cover,
                       height: 60,
@@ -255,8 +257,9 @@ class _EventPostSearchState extends State<EventPostSearch> {
                   topLeft: Radius.circular(19),
                   topRight: Radius.circular(19),
                 ),
-                child: Image.network(
-                  "${widget.eventpostimage}",
+                child: FadeInImage.assetNetwork(
+                  placeholder: 'assets/images/default_event.png',
+                  image: "${widget.eventpostimage}",
                   width: MediaQuery.of(context).size.width,
                   fit: BoxFit.cover,
                   height: 200,
@@ -269,8 +272,9 @@ class _EventPostSearchState extends State<EventPostSearch> {
                     contentPadding: const EdgeInsets.all(0),
                     leading: ClipRRect(
                       borderRadius: BorderRadius.circular(50),
-                      child: Image.network(
-                        "${widget.eventorgbyimg}",
+                      child: FadeInImage.assetNetwork(
+                        placeholder: 'assets/images/default_club.png',
+                        image: "${widget.eventorgbyimg}",
                         width: 60,
                         fit: BoxFit.cover,
                         height: 60,
@@ -291,33 +295,82 @@ class _EventPostSearchState extends State<EventPostSearch> {
                         ),
                       ],
                     ),
-                    // trailing: ElevatedButton(
-                    //   onPressed: () {
-                    //     document.reference
-                    //         .update({'Votes': document['Votes'] + 1});
-                    //   },
-                    //   child: SizedBox(
-                    //     width: 40,
-                    //     height: 40,
-                    //     child: Row(
-                    //       children: [
-                    //         Padding(
-                    //           padding:
-                    //               const EdgeInsets.only(top: 8.0, right: 5),
-                    //           child: Text(
-                    //             "${document['Votes']}",
-                    //             style: const TextStyle(fontSize: 15),
-                    //           ),
-                    //         ),
-                    //         const Icon(Icons.volunteer_activism_sharp),
-                    //       ],
-                    //     ),
-                    //   ),
-                    // ),
                   )),
               const SizedBox(height: 10),
             ],
           )),
     );
+  }
+}
+
+Widget buildClub(BuildContext context, DocumentSnapshot document) {
+  String curEmails = FirebaseAuth.instance.currentUser!.email.toString();
+  return Padding(
+    padding: const EdgeInsets.fromLTRB(15, 0, 15, 5),
+    child: Container(
+        width: MediaQuery.of(context).size.width,
+        margin: const EdgeInsets.only(top: 20),
+        // padding: const EdgeInsets.only(left: 10, right: 10),
+        decoration: BoxDecoration(
+            border: Border.all(width: 1),
+            borderRadius: BorderRadius.circular(20)),
+        child: Column(
+          children: [
+            const SizedBox(height: 2),
+            Container(
+                padding: const EdgeInsets.only(left: 10, right: 10),
+                child: ListTile(
+                  contentPadding: const EdgeInsets.all(0),
+                  leading: ClipRRect(
+                    borderRadius: BorderRadius.circular(50),
+                    child: FadeInImage.assetNetwork(
+                      placeholder: 'assets/images/default_club.png',
+                      image: "${document['image']}",
+                      width: 60,
+                      fit: BoxFit.cover,
+                      height: 60,
+                    ),
+                  ),
+                  title: Text(document['name']),
+                  subtitle: Row(
+                    children: [
+                      Text(
+                        document['description'],
+                        style: const TextStyle(
+                            color: Color.fromARGB(255, 48, 48, 48)),
+                      ),
+                    ],
+                  ),
+                )),
+            const SizedBox(height: 10),
+          ],
+        )),
+  );
+}
+
+ImageProvider<Object> getEventImage(String url) {
+  try {
+    final image = NetworkImage(url);
+    return image;
+  } catch (e) {
+    return const AssetImage('assets/images/default_event.png');
+  }
+}
+
+ImageProvider<Object> getUserImage(String url) {
+  try {
+    final image = NetworkImage(url);
+    return image;
+  } catch (e) {
+    return const AssetImage('assets/images/default_club.png');
+  }
+}
+
+ImageProvider<Object> getClubImage(String url) {
+  try {
+    final image = NetworkImage(url);
+    return image;
+  } catch (e) {
+    return const AssetImage('assets/images/default_user.jpg');
   }
 }
