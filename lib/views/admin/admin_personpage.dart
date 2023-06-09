@@ -33,9 +33,14 @@ class _PersonPageState extends State<PersonPage> {
                   },
                 ),
               ),
+              const SizedBox(height: 20),
+              const Text(
+                "Clubs:",
+                style: TextStyle(fontSize: 20),
+              ),
               SingleChildScrollView(
                 child: SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.81,
+                  height: MediaQuery.of(context).size.height * 0.75,
                   child: StreamBuilder(
                     stream: FirebaseFirestore.instance
                         .collection('Clubs')

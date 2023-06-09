@@ -331,15 +331,17 @@ Widget buildClub(BuildContext context, DocumentSnapshot document) {
                       height: 60,
                     ),
                   ),
-                  title: Text(document['name']),
-                  subtitle: Row(
-                    children: [
-                      Text(
-                        document['description'],
-                        style: const TextStyle(
-                            color: Color.fromARGB(255, 48, 48, 48)),
-                      ),
-                    ],
+                  title: Text(
+                    document['name'],
+                    softWrap: false,
+                    maxLines: 2,
+                  ),
+                  subtitle: Text(
+                    document['description'],
+                    softWrap: true,
+                    maxLines: 5,
+                    style:
+                        const TextStyle(color: Color.fromARGB(255, 48, 48, 48)),
                   ),
                 )),
             const SizedBox(height: 10),

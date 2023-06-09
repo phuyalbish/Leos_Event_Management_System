@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "142832184746",
-    "project_id": "evento-databases",
-    "storage_bucket": "evento-databases.appspot.com"
+    "project_number": "988214504042",
+    "project_id": "eventmgmtsys",
+    "storage_bucket": "eventmgmtsys.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:142832184746:android:92acb3977ccd6c8afc0fd3",
+        "mobilesdk_app_id": "1:988214504042:android:16664ff6dfcb7a419c7813",
         "android_client_info": {
           "package_name": "com.example.evento"
         }
       },
       "oauth_client": [
         {
-          "client_id": "142832184746-fovuhfe296rha9nfs2fsddd24bhbujqn.apps.googleusercontent.com",
+          "client_id": "988214504042-sjeq4u1ekhqid1nq93il1g1c48lvb73u.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyC6CuKoiBp1CWIcFHftYTS6tLZHU4fZil0"
+          "current_key": "AIzaSyAk4WJkSVF4o0W1MvFQwB0jRHhGFi-ydmo"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "142832184746-fovuhfe296rha9nfs2fsddd24bhbujqn.apps.googleusercontent.com",
+              "client_id": "988214504042-sjeq4u1ekhqid1nq93il1g1c48lvb73u.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

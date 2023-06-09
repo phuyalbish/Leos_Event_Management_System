@@ -210,7 +210,7 @@ class _AddClubsState extends State<AddClubs> {
                 const SizedBox(
                   height: 5,
                 ),
-                Text(errorMsg),
+                Text(errorMsg, style: const TextStyle(color: Colors.black)),
                 const SizedBox(
                   height: 5,
                 ),

@@ -16,6 +16,7 @@ class _NavbarState extends State<Navbar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromARGB(255, 95, 92, 92),
       body: SafeArea(
           child: Stack(
         children: [

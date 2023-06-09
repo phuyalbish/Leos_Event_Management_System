@@ -8,126 +8,115 @@ class ClubProfile extends StatefulWidget {
 }
 
 class _ClubProfileState extends State<ClubProfile> {
+  List searchResult = [];
+  String emails = FirebaseAuth.instance.currentUser!.email.toString();
+  void searchFromFirebase() async {
+    final result = await FirebaseFirestore.instance
+        .collection('Clubs')
+        .where('email', isEqualTo: emails)
+        .get();
+    if (mounted) {
+      setState(() {
+        searchResult = result.docs.map((e) => e.data()).toList();
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    String emails = FirebaseAuth.instance.currentUser!.email.toString();
-
-    return Center(
-        child: Column(
-      children: [
-        const SizedBox(
-          height: 20,
-        ),
-        SingleChildScrollView(
-          child: SizedBox(
-            height: MediaQuery.of(context).size.height * 0.4,
-            width: MediaQuery.of(context).size.width * 1,
-            child: StreamBuilder(
-              stream: FirebaseFirestore.instance
-                  .collection('Clubs')
-                  .where('email', isEqualTo: emails)
-                  .snapshots(),
-              builder: ((context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
-                if (!streamSnapshot.hasData) {
-                  return const Text('Loading...');
-                } else {
-                  return ListView.builder(
-                    itemCount: streamSnapshot.data?.docs.length,
-                    itemBuilder: (context, index) {
-                      // final DocumentSnapshot documentSnapshot =
-                      //     streamSnapshot.data!.docs[index];
-                      return Column(
-                        children: [
-                          // Container(
-                          //   width: 200,
-                          //   height: 200,
-                          //   decoration: BoxDecoration(
-                          //     borderRadius: BorderRadius.circular(20),
-                          //   ),
-                          //   child: FadeInImage.assetNetwork(
-                          //     placeholder: 'assets/images/default_club.png',
-                          //     image: "${documentSnapshot['image']}",
-                          //     width: MediaQuery.of(context).size.width,
-                          //     fit: BoxFit.cover,
-                          //     height: 200,
-                          //   ),
-                          // ),
-                          const SizedBox(
-                            height: 40,
-                          ),
-                          Center(
-                            child: Column(
-                              children: [
-                                Text(
-                                  streamSnapshot.data!.docs[index]['name'],
-                                  style: const TextStyle(fontSize: 20),
-                                ),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                Text(
-                                    "${streamSnapshot.data!.docs[index]['email']} "),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                Text(
-                                    "${streamSnapshot.data!.docs[index]['description']}"),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                Text(
-                                    "president: ${streamSnapshot.data!.docs[index]['president']}"),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                Text(
-                                    "address: ${streamSnapshot.data!.docs[index]['address']}"),
-                              ],
+    searchFromFirebase();
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Center(
+          child: Column(
+        children: [
+          const SizedBox(
+            height: 20,
+          ),
+          SingleChildScrollView(
+            physics: const NeverScrollableScrollPhysics(),
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height * 0.45,
+              width: MediaQuery.of(context).size.width * 1,
+              child: ListView.builder(
+                itemCount: searchResult.length,
+                itemBuilder: (context, index) {
+                  return Column(
+                    children: [
+                      const SizedBox(
+                        height: 40,
+                      ),
+                      Center(
+                        child: Column(
+                          children: [
+                            Image.network("${searchResult[index]['image']}"),
+                            Text(
+                              searchResult[index]['name'],
+                              style: const TextStyle(fontSize: 20),
                             ),
-                          ),
-                        ],
-                      );
-                    },
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Text("${searchResult[index]['email']} "),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Text(
+                              "${searchResult[index]['description']}",
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Text(
+                                "president: ${searchResult[index]['president']}"),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Text("address: ${searchResult[index]['addredd']}"),
+                          ],
+                        ),
+                      ),
+                    ],
                   );
-                }
-              }),
+                },
+              ),
             ),
           ),
-        ),
-        ElevatedButton(
-          child: const Text("Edit Account"),
-          onPressed: () {
-            FirebaseAuth.instance.signOut().then((value) {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const SignInScreen()));
-            });
-          },
-        ),
-        ElevatedButton(
-          child: const Text("Delete Account"),
-          onPressed: () {
-            FirebaseAuth.instance.signOut().then((value) {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const SignInScreen()));
-            });
-          },
-        ),
-        ElevatedButton(
-          child: const Text("Logout"),
-          onPressed: () {
-            FirebaseAuth.instance.signOut().then((value) {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const SignInScreen()));
-            });
-          },
-        ),
-      ],
-    ));
+          ElevatedButton(
+            child: const Text("Edit Club"),
+            onPressed: () {
+              FirebaseAuth.instance.signOut().then((value) {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const SignInScreen()));
+              });
+            },
+          ),
+          ElevatedButton(
+            child: const Text("Delete Club"),
+            onPressed: () {
+              FirebaseAuth.instance.signOut().then((value) {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const SignInScreen()));
+              });
+            },
+          ),
+          ElevatedButton(
+            child: const Text("Logout"),
+            onPressed: () {
+              FirebaseAuth.instance.signOut().then((value) {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const SignInScreen()));
+              });
+            },
+          ),
+        ],
+      )),
+    );
   }
 }
