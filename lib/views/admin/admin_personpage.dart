@@ -47,8 +47,9 @@ class _PersonPageState extends State<PersonPage> {
                         .snapshots(),
                     builder: ((context,
                         AsyncSnapshot<QuerySnapshot> streamSnapshot) {
-                      if (!streamSnapshot.hasData)
+                      if (!streamSnapshot.hasData) {
                         return const Text('Loading...');
+                      }
                       return ListView.builder(
                         itemCount: streamSnapshot.data?.docs.length,
                         itemBuilder: (context, index) {

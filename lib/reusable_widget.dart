@@ -305,7 +305,7 @@ class _EventPostSearchState extends State<EventPostSearch> {
 }
 
 Widget buildClub(BuildContext context, DocumentSnapshot document) {
-  String curEmails = FirebaseAuth.instance.currentUser!.email.toString();
+  // String curEmails = FirebaseAuth.instance.currentUser!.email.toString();
   return Padding(
     padding: const EdgeInsets.fromLTRB(15, 0, 15, 5),
     child: Container(
